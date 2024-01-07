@@ -1,98 +1,140 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Navigation from "../components/zoodogood/NavigationMarquee.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
 
 const realCoolHeader = "Enotik page";
 const addable = {
-	name: "enot",
-	hobbies: ["nothing", "nope"],
-	skills: {
-		js: "loved",
-		html: "basics, never use div",
-		css: "liked to use new features",
-		"DOM API": "partial dislike",
-		"Document assebility": "i bad in it",
-		git: "i like how i named commits; merge it hard for me, but i can it; i haven't using branch experience",
-		"discord.js": "knows more api, have own utils library; never used shards",
-		"svelte": "basics, 2mo, not use now",
-		"vue": "basics, 1mo, not use now",
-		"preact": "basics, not use now",
-		"astro": "learning now",
-		"ts": "6mo, i dislike it in non library projects, now using",
-		"canvas": "i understending layouts",
-		"figma": "noop, i need a help",
-		"bun": "i like new things",
-		"deno": "deno is dead?",
-		"terminal": "6mo in personal pc, using now",
-		"rust": "0.5mo, i need more practicle, partial using now",
-		"vscodeapi": "i understand how develop basic extensions and sometimes practicle it: 0.5mo, partial develop now",
-		"vim/neovim": "basics, dislike",
-		"godot": "2d :)))",
-		"webpack/rollup/vite/esbuild": "yes?",
-		"obsidianapi": "it's hard for me",
-		"docker": "basics, i need practicle, not using now",
-		
-		
-		
-	},
-	softSkills: {
-		you_can_describe_me: "nope, it's not honey"
-	}
+  name: "enot",
+  hobbies: ["nothing", "nope"],
+  skills: {
+    js: "loved",
+    html: "basics, never use div",
+    css: "liked to use new features",
+    "DOM API": "partial dislike",
+    "Document assebility": "i bad in it",
+    git: "i like how i named commits; merge it hard for me, but i can it; i haven't using branch experience",
+    "discord.js": "knows more api, have own utils library; never used shards",
+    svelte: "basics, 2mo, not use now",
+    vue: "basics, 1mo, not use now",
+    preact: "basics, not use now",
+    astro: "learning now",
+    ts: "6mo, i dislike it in non library projects, now using",
+    canvas: "i understending layouts",
+    figma: "noop, i need a help",
+    bun: "i like new things",
+    deno: "deno is dead?",
+    terminal: "6mo in personal pc, using now",
+    rust: "0.5mo, i need more practicle, partial using now",
+    vscodeapi:
+      "i understand how develop basic extensions and sometimes practicle it: 0.5mo, partial develop now",
+    "vim/neovim": "basics, dislike",
+    godot: "2d :)))",
+    "webpack/rollup/vite/esbuild": "yes?",
+    obsidianapi: "it's hard for me",
+    docker: "basics, i need practicle, not using now",
+    eslint: "sometimes hard to setup for frameworks like svelte or astro",
+    prettier: "just boost me",
+    "pocket code": "1y",
+    scratch: "0.5y"
+  },
+  softSkills: {
+    you_can_describe_me: "nope, it's not honey",
+  },
 };
+
+const COLORS = {
+  hover: "purple"
+}
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<style>
-		li {
-			list-style-position: outside !important;
-		}
-		body > main {
-			padding-bottom: 3em;
-		}
-		.hobby {
-			color: orange;
-		}
-		.skill-key {
-			color: blue;
-		}
-		.softSkill-key {
-			color: green;
-		}
-	</style>
-	<body>
-		<Header title={SITE_TITLE} />
-		<main>
-			<h1>🧑‍🚀 Hello, Developer</h1>
-			<h2>Hello raccoon</h2>
-			<h3>{ realCoolHeader }</h3>
-			<a href = "./index">home</a>
-			<a href = "./about">about</a>
-			<a href = ".">blog</a>
-			<section>
-				<h2>### About me</h2>
-				{addable.hobbies && <>
-					<b>Hobbies:</b>
-					{addable.hobbies.map(value => <li class = "hobby">{ value }</li>)}
-				<>}
-				{addable.skills && <>
-					<b>Skills:</b>
-					{Object.entries(addable.skills).map(([key, value]) => <li class = "skill"><span class = "skill-key">{key}: </span>{ value }</li>)}
-				<>}
-				{addable.solfSkills && <>
-					<b>Soft skills:</b>
-					{Object.entries(addable.softSkills).map(([key, value]) => <li class = "solfSkill">
-						<span class = "softSkill-key">{key}: </span>
-						{ value }
-					</li>)}
-				<>}
-			</section>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+    <style define:vars={COLORS}>
+      ul {
+        list-style: circle outside;
+      }
+      body > main {
+        padding-bottom: 3em;
+      }
+      li:hover {
+        color: var(--hover);
+      }
+      .hobby {
+        color: orange;
+      }
+      .skill-key {
+        color: blue;
+      }
+      .softSkill-key {
+        color: green;
+      }
+    </style>
+  </head>
+
+  <body>
+    <Header title={SITE_TITLE} />
+    <main>
+      <h1>🧑‍🚀 Hello, Developer</h1>
+      <h2>Hello raccoon</h2>
+      <h3>{realCoolHeader}</h3>
+      <a href="./index">home</a>
+      <a href="./about">about</a>
+      <a href=".">blog</a>
+      <Navigation/>
+      <h2>### About me</h2>
+      {
+        addable.hobbies && (
+          <section>
+            <b>Hobbies:</b>
+            <ul>
+              {addable.hobbies.map((value) => (
+                <li class="hobby">{value}</li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+      {
+        addable.skills && (
+          <section>
+            <b>Skills:</b>
+            <ul>
+              {Object.entries(addable.skills).map(([key, value]) => (
+                <li class="skill">
+                  <span class="skill-key">{key}: </span>
+                  {value}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+      {
+        addable.softSkills && (
+          <section>
+            <b>Soft skills:</b>
+            <ul>
+              {Object.entries(addable.softSkills).map(([key, value]) => (
+                <li class="solfSkill">
+                  <span class="softSkill-key">{key}: </span>
+                  {value}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+
+      <textarea cols="30" rows="10">
+        "Меня действительно бесит отсутствие нормальных import allias в JavaScript"
+      </textarea>
+    </main>
+
+    <Footer />
+  </body>
 </html>

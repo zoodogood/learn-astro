@@ -1,0 +1,21 @@
+---
+const links = {
+  home: "/",
+  x: "/x",
+  blog: "/blog",
+  about: "/about",
+};
+---
+
+<html>
+  <style define:vars={{ count: Object.keys(links).length }}>
+    a {
+      margin-inline: calc(50% / (1 + var(--count)));
+    }
+  </style>
+  <marquee behaviour = "alternate">
+    {Object.entries(links).map(([label, href]) => <a {href}>{label}</a>)}
+  </marquee>
+
+</html>
+  
