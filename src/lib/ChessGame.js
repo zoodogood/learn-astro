@@ -82,6 +82,10 @@ class BasePiece {
 	canMovedTo(x, y, game) {
 		throw new Error("Must be implemented");
 	}
+
+	static from(props){
+		return Object.assign(Object.create(this.prototype), props);
+	}
 }
 
 class CellsWatcher {
@@ -169,6 +173,11 @@ class Game {
 	setBoard(board) {
 		this.board = board;
 		return this;
+	}
+
+	onAddPiece({piece}){
+		const position = piece.position.toString();
+		this.positions.set(position, piece);
 	}
 
 	static cellsWatcherDefaultStrategy = CellsWatcher.strategies.cellByCellOnBoard;

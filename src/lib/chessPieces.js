@@ -3,21 +3,25 @@ import { BasePiece, resolveDirection } from "./ChessGame";
 import { getDistance2d } from "./MathUtils";
 class Pawn extends BasePiece {
 	stepSize = 1;
-	fisrtStepSize = 2;
-	canMovedTo(targetX, targetY, pieceData) {
-		if (!this.canMoveAlongDirection({ pieceData, targetX, targetY })) {
+	firstStepSize = 2;
+	canMovedTo(targetX, targetY, game) {
+		if (!this.canMoveAlongDirection({ targetX, targetY })) {
 			return false;
 		}
 		
-		const { position, stepsCount } = pieceData;
+		const { position, stepsCount } = this;
 		const [myX, myY] = position;
 		const maximumStepSize = (() => {
 			const isFirstStep = stepsCount === 0;
-			const { stepSize, fisrtStepSize } = this;
-			return isFirstStep ? fisrtStepSize : stepSize;
+			const { stepSize, firstStepSize } = this;
+			return isFirstStep ? firstStepSize : stepSize;
 
 		})();
-		if (Math.round(getDistance2d(myX, targetX, myY, targetY)) > maximumStepSize) {
+		console.log({
+			maximumStepSize, dis: getDistance2d(myX, myY, targetX, targetY),
+			myX, myY, targetX, targetY
+		 })
+		if (Math.round(getDistance2d(myX, myY, targetX, targetY)) > maximumStepSize) {
 			return false;
 		}
 
@@ -25,8 +29,8 @@ class Pawn extends BasePiece {
 
 	}
 
-	canMoveAlongDirection({ pieceData, targetX, targetY }) {
-		const { offensiveDirection, position } = pieceData;
+	canMoveAlongDirection({ targetX, targetY }) {
+		const { offensiveDirection, position } = this;
 		const [myX, myY] = position;
 		const [byX, byY] = resolveDirection(offensiveDirection);
 		return byX === 1 && myX < targetX || byY === -1 && myX > targetX || byY === 1 && myY < targetY || byY === -1 && myY > targetY;
