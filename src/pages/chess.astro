@@ -1,0 +1,21 @@
+---
+// @ts-check
+import { ClassicChess } from "../lib/ClassicChess.js";
+import {CellsWatcher} from "../lib/ChessGame.js";
+const game = new ClassicChess();
+game.init();
+const generator = new CellsWatcher().setGame(game).watchGenerator(ClassicChess.cellsWatcherDefaultStrategy);
+for (const iterator of generator) {
+	console.log(iterator);
+}
+---
+
+<style>
+	span {
+		white-space: pre;
+	}
+</style>
+<span>
+	{JSON.stringify(game, null, 2)}
+</span>
+
