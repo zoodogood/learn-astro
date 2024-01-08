@@ -2,6 +2,8 @@
 import { BasePiece, resolveDirection } from "./ChessGame";
 import { getDistance2d } from "./MathUtils";
 class Pawn extends BasePiece {
+	stepSize = 1;
+	fisrtStepSize = 2;
 	canMovedTo(targetX, targetY, pieceData) {
 		if (!this.canMoveAlongDirection({ pieceData, targetX, targetY })) {
 			return false;
@@ -9,8 +11,13 @@ class Pawn extends BasePiece {
 		
 		const { position, stepsCount } = pieceData;
 		const [myX, myY] = position;
-		const isFirstStep = stepsCount === 0;
-		if (Math.round(getDistance2d(myX, targetX, myY, targetY)) > (isFirstStep ? 2 : 1)) {
+		const maximumStepSize = (() => {
+			const isFirstStep = stepsCount === 0;
+			const { stepSize, fisrtStepSize } = this;
+			return isFirstStep ? fisrtStepSize : stepSize;
+
+		})();
+		if (Math.round(getDistance2d(myX, targetX, myY, targetY)) > maximumStepSize) {
 			return false;
 		}
 
