@@ -26,6 +26,15 @@ function resolveDirection(direction) {
 }
 
 
+const PieceEvent = {
+	BeforeMove: "beforeMove",
+	Move: "move",
+
+}
+
+class PieceUtil {
+	
+}
 
 class BasePiece {
 	position = [0, 0];
@@ -43,6 +52,24 @@ class BasePiece {
 	
 	onKilled() {
 		console.info("Is can be implemented");
+	}
+	
+	requestMove([x, y], game) {
+		if (this.canMovedTo(x, y, game)) {
+			return false;
+		}
+		return this._move([x, y]);
+	}
+
+	_move([x, y]) {
+		const event = new Event(PieceEvent.BeforeMove, { cancelable: true });
+		const context = { position: [x, y], event, piece: this };
+		this.emitter.emit(PieceEvent.BeforeMoveMove, context);
+		if (event.defaultPrevented) {
+			return;
+		}
+		this.emitter.emit(PieceEvent.Move, context);
+		this.position = [x, y];
 	}
 
 	/**
