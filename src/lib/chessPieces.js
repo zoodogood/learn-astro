@@ -40,3 +40,4 @@ class Pawn extends BasePiece {
 }
 
 export { Pawn };
+
