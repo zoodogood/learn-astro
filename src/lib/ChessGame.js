@@ -1,5 +1,5 @@
 // @ts-check
-import { EventsEmitter } from "./EventsEmmiter";
+import { EventsEmitter } from "./EventsEmitter.js";
 
 class Board {
   width = 8;
@@ -81,15 +81,19 @@ class BasePiece {
   emitter = new EventsEmitter();
 
   onPick() {
-    console.info("Is can be implemented");
+    throw new Error("Must be implemented");
+  }
+
+  onPickCancelled() {
+    throw new Error("Must be implemented");
   }
 
   onMove() {
-    console.info("Is can be implemented");
+    throw new Error("Must be implemented");
   }
 
   onKilled() {
-    console.info("Is can be implemented");
+    throw new Error("Must be implemented");
   }
 
   requestMove(position, game) {

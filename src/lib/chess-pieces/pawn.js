@@ -1,10 +1,10 @@
 // @ts-check
-import { BasePiece, resolveDirection } from "../ChessGame";
-import { getDistance2d } from "../MathUtils";
+import { BasePiece, resolveDirection } from "@lib/ChessGame.js";
+import { getDistance2d } from "@lib/MathUtils.js";
 class Pawn extends BasePiece {
   stepSize = 1;
   firstStepSize = 2;
-  canMovedTo(targetX, targetY, game) {
+  canMovedTo(targetX, targetY, _game) {
     if (!this.canMoveAlongDirection({ targetX, targetY })) {
       return false;
     }
@@ -26,13 +26,16 @@ class Pawn extends BasePiece {
   }
   canMoveAlongDirection({ targetX, targetY }) {
     const { offensiveDirection, position } = this;
+    if (!offensiveDirection) {
+      return true;
+    }
     const [myX, myY] = position;
     const [byX, byY] = resolveDirection(offensiveDirection);
     return (
       (byX === 1 && myX < targetX) ||
-      (byY === -1 && myX > targetX) ||
-      (byY === 1 && myY < targetY) ||
-      (byY === -1 && myY > targetY)
+      (byX === -1 && myX > targetX) ||
+      (byY === -1 && myY < targetY) ||
+      (byY === 1 && myY > targetY)
     );
   }
 }

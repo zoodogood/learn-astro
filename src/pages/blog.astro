@@ -1,24 +1,24 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts.js";
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header title={SITE_TITLE} />
-		<main>
-			<h1>🧑‍🚀 Hello, Developer</h1>
-			<h2>Hello raccon</h2>
-			<a href = "./index">home</a>
-			<a href = "./about">about</a>
-			<a href = ".">blog</a>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header title={SITE_TITLE} />
+    <main>
+      <h1>🧑‍🚀 Hello, Developer</h1>
+      <h2>Hello raccon</h2>
+      <a href="./index">home</a>
+      <a href="./about">about</a>
+      <a href=".">blog</a>
+    </main>
+    <Footer />
+  </body>
 </html>

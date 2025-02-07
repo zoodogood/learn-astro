@@ -22,6 +22,8 @@ const addable = {
     preact: "basics, not use now",
     astro: "learning now",
     ts: "6mo, i dislike it in non library projects, now using",
+    jsdoc:
+      "i'm using jsdocs + @ts-check + tsconfig (for editor) instead of installation typescript to project",
     canvas: "i understending layouts",
     figma: "noop, i need a help",
     bun: "i like new things",
@@ -38,7 +40,7 @@ const addable = {
     eslint: "sometimes hard to setup for frameworks like svelte or astro",
     prettier: "just boost me",
     "pocket code": "1y",
-    scratch: "0.5y"
+    scratch: "0.5y",
   },
   softSkills: {
     you_can_describe_me: "nope, it's not honey",
@@ -46,8 +48,8 @@ const addable = {
 };
 
 const COLORS = {
-  hover: "purple"
-}
+  hover: "purple",
+};
 ---
 
 <!doctype html>
@@ -85,7 +87,7 @@ const COLORS = {
       <a href="./index">home</a>
       <a href="./about">about</a>
       <a href=".">blog</a>
-      <Navigation/>
+      <Navigation />
       <h2>### About me</h2>
       {
         addable.hobbies && (
@@ -131,7 +133,8 @@ const COLORS = {
       }
 
       <textarea cols="30" rows="10">
-        "Меня действительно бесит отсутствие нормальных import allias в JavaScript"
+        "Меня действительно бесит отсутствие нормальных import allias в
+        JavaScript"
       </textarea>
     </main>
 

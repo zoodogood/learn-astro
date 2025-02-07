@@ -1,51 +1,63 @@
 ---
 // @ts-check
-import { ClassicChess } from "../lib/ClassicChess.js";
-import { Pawn } from "../lib/chessPieces.js";
-import {CellsWatcher} from "../lib/ChessGame.js";
+import { ClassicChess } from "@lib/ClassicChess.js";
+import { Pawn } from "@lib/chess-pieces/pawn.js";
+import { CellsWatcher, PieceOffensiveDirection } from "@lib/ChessGame.js";
+import Page from "@/layouts/Page.astro";
+
 const game = new ClassicChess();
 game.init();
-const generator = new CellsWatcher().setGame(game).watchGenerator(ClassicChess.cellsWatcherDefaultStrategy);
+const generator = new CellsWatcher()
+  .setGame(game)
+  .watchGenerator(ClassicChess.cellsWatcherDefaultStrategy);
 const cells = [...generator];
 
 const pawn = new Pawn();
-Object.assign(pawn, {position: [4, 4], offensiveDirection: "top"});
-game.onAddPiece({piece: pawn});
-
+Object.assign(pawn, {
+  position: [4, 4],
+  offensiveDirection: PieceOffensiveDirection.Left,
+});
+game.onAddPiece({ piece: pawn });
 ---
 
-<style>
-	span {
-		white-space: pre;
-	}
-	.board {
-		font-family: monospace;
-		width: max-content;
-		white-space: pre;
-	}
-</style>
-<span>
-	{JSON.stringify(game, null, 2)}
-</span>
-<section>
-<h3>Board</h3>
-<p>0 - пустая клетка, 1 - куда может сходить пешка, 2 - сама пешка</p>
-<section  class = "board">
-	aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-	{(() => {
-		const symbols = cells.map(([x, y]) => game.positions.has([x, y].toString()) 
-			? 2
-			: pawn.canMovedTo(x, y, game)
-			? 1
-			: 0
-		);
-		let str = "";
-		while (symbols.length){
-			str += symbols.splice(0, game.board.width).join("");
-			str += "\n";
-		}
-		return str;
-	})()}	
-</section>
-</section>
+<Page>
+  <style>
+    span {
+      white-space: pre;
+    }
+    .board {
+      font-family: monospace;
+      white-space: pre;
+      width: 12em;
+      display: flex;
+      flex-wrap: wrap;
+    }
 
+    element-cell {
+      display: inline-block;
+      width: 1.5em;
+      height: 1.5em;
+    }
+  </style>
+  <span>
+    {JSON.stringify(game, null, 2)}
+  </span>
+  <section>
+    <h3>Board</h3>
+    <p>0 - Просто клетка; 2 - Сама пешка; 1 - то, куда она может сходить.</p>
+    <section class="board">
+      {
+        (() => {
+          const symbols = cells.map(([x, y]) =>
+            game.positions.has([x, y].toString())
+              ? 2
+              : pawn.canMovedTo(x, y, game)
+                ? 1
+                : 0,
+          );
+          return symbols.map((char) => <element-cell>{char}</element-cell>);
+        })()
+      }
+    </section>
+  </section>
+</Page>
